@@ -6,12 +6,10 @@ import {
 	Scripts,
 } from "@tanstack/react-router";
 import { QueryProvider } from "../QueryProvider";
+import appCss from "../styles.css?url";
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 	{
-		notFoundComponent(props) {
-			return <div>Not found...</div>;
-		},
 		head: ({ loaderData }) => ({
 			meta: [
 				{
@@ -28,8 +26,8 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 					description: "Quickly create bug reproduction projects to aid fixing",
 				},
 			],
+			links: [{ rel: "stylesheet", href: appCss }],
 		}),
-		ssr: true,
 		shellComponent: RootDocument,
 	},
 );
