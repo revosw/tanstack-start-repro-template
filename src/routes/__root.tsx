@@ -1,11 +1,11 @@
-import type { QueryClient } from "@tanstack/react-query";
+import { QueryClientProvider, type QueryClient } from "@tanstack/react-query";
 import {
 	createRootRouteWithContext,
 	HeadContent,
 	Outlet,
 	Scripts,
 } from "@tanstack/react-router";
-import { QueryProvider } from "../QueryProvider";
+import {ReactQueryDevtools} from "@tanstack/react-query-devtools"
 import appCss from "../styles.css?url";
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
@@ -33,15 +33,20 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 );
 
 function RootDocument() {
+	const queryClient = Route.useRouteContext({
+		select: ({ queryClient }) => queryClient,
+	});
+
 	return (
 		<html lang="no">
 			<head>
 				<HeadContent />
 			</head>
 			<body>
-				<QueryProvider>
+				<QueryClientProvider client={queryClient}>
 					<Outlet />
-				</QueryProvider>
+                    <ReactQueryDevtools client={queryClient}  />
+				</QueryClientProvider>
 				<Scripts />
 			</body>
 		</html>
