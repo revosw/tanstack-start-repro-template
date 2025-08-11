@@ -1,11 +1,11 @@
-import { QueryClientProvider, type QueryClient } from "@tanstack/react-query";
+import { type QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import {
 	createRootRouteWithContext,
 	HeadContent,
 	Outlet,
 	Scripts,
 } from "@tanstack/react-router";
-import {ReactQueryDevtools} from "@tanstack/react-query-devtools"
 import appCss from "../styles.css?url";
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
@@ -45,7 +45,7 @@ function RootDocument() {
 			<body>
 				<QueryClientProvider client={queryClient}>
 					<Outlet />
-                    <ReactQueryDevtools client={queryClient}  />
+					<ReactQueryDevtools client={queryClient} />
 				</QueryClientProvider>
 				<Scripts />
 			</body>
